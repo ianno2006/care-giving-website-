@@ -15,27 +15,58 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
 });
 
-/* Mobile Navigation Drawer */
+/* Mobile Navigation Drawer System */
 function initMobileNav() {
-  const toggleBtn = document.querySelector('.mobile-nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  window.openMobileNav = function() {
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const backdrop = document.getElementById('mobile-nav-backdrop');
+    if (drawer) drawer.classList.add('active');
+    if (backdrop) backdrop.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  };
 
-  if (toggleBtn && navLinks) {
-    toggleBtn.addEventListener('click', () => {
-      const isOpen = navLinks.style.display === 'flex';
-      navLinks.style.display = isOpen ? 'none' : 'flex';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '80px';
-      navLinks.style.left = '0';
-      navLinks.style.width = '100%';
-      navLinks.style.backgroundColor = '#FFFFFF';
-      navLinks.style.padding = '1.5rem';
-      navLinks.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
-      toggleBtn.innerHTML = isOpen ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
-    });
-  }
+  window.closeMobileNav = function() {
+    const drawer = document.getElementById('mobile-nav-drawer');
+    const backdrop = document.getElementById('mobile-nav-backdrop');
+    if (drawer) drawer.classList.remove('active');
+    if (backdrop) backdrop.classList.remove('active');
+    document.body.style.overflow = '';
+  };
+
+  window.toggleMobileServicesMenu = function() {
+    const accordion = document.getElementById('mobile-services-accordion');
+    if (accordion) {
+      accordion.classList.toggle('open');
+    }
+  };
 }
+
+/* Helper to switch active service tab from any link */
+window.switchServiceTab = function(tabName) {
+  const tabBtn = document.querySelector(`.service-tab-btn[data-tab="${tabName}"]`);
+  if (tabBtn) {
+    tabBtn.click();
+  }
+};
+
+/* Privacy & Terms Modal Handlers */
+window.openPrivacyModal = function() {
+  const modal = document.getElementById('privacy-modal');
+  if (modal) modal.classList.add('active');
+};
+window.closePrivacyModal = function() {
+  const modal = document.getElementById('privacy-modal');
+  if (modal) modal.classList.remove('active');
+};
+
+window.openTermsModal = function() {
+  const modal = document.getElementById('terms-modal');
+  if (modal) modal.classList.add('active');
+};
+window.closeTermsModal = function() {
+  const modal = document.getElementById('terms-modal');
+  if (modal) modal.classList.remove('active');
+};
 
 /* Caregiver Profiles Data & Filtering */
 const CAREGIVERS_DATA = [

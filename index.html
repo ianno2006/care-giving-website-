@@ -81,13 +81,14 @@
           <li><a href="#home" class="nav-link active">Home</a></li>
           <li><a href="#about" class="nav-link">About Us</a></li>
           <li class="nav-dropdown">
-            <a href="#services" class="nav-link">Services <i class="fas fa-chevron-down" style="font-size:0.75rem;"></i></a>
+            <a href="#services-detail" class="nav-link">Services <i class="fas fa-chevron-down" style="font-size:0.75rem;"></i></a>
             <ul class="dropdown-menu">
-              <li class="dropdown-item"><a href="#services">👵 Elderly Care</a></li>
-              <li class="dropdown-item"><a href="#services">🏠 Home Care</a></li>
-              <li class="dropdown-item"><a href="#services">🏥 Post-Hospital Care</a></li>
-              <li class="dropdown-item"><a href="#services">♿ Disability Support</a></li>
-              <li class="dropdown-item"><a href="#services">❤️ Respite Care</a></li>
+              <li class="dropdown-item"><a href="#services-detail" onclick="switchServiceTab('elderly')">👵 Elderly Care</a></li>
+              <li class="dropdown-item"><a href="#services-detail" onclick="switchServiceTab('homecare')">🏠 Personal Home Care</a></li>
+              <li class="dropdown-item"><a href="#services-detail" onclick="switchServiceTab('posthospital')">🏥 Post-Hospital Care</a></li>
+              <li class="dropdown-item"><a href="#services-detail" onclick="switchServiceTab('disability')">♿ Disability Support</a></li>
+              <li class="dropdown-item"><a href="#services-detail" onclick="switchServiceTab('respite')">❤️ Respite Care</a></li>
+              <li class="dropdown-item"><a href="#services-detail" onclick="switchServiceTab('specialized')">👶 Specialized Care</a></li>
             </ul>
           </li>
           <li><a href="#caregivers" class="nav-link">Our Caregivers</a></li>
@@ -104,12 +105,66 @@
         <button class="btn btn-primary" onclick="openCareModal()">
           <i class="fas fa-hand-holding-heart"></i> Request Care
         </button>
-        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu" onclick="openMobileNav()">
           <i class="fas fa-bars"></i>
         </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer & Backdrop -->
+  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" onclick="closeMobileNav()"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation Menu">
+    <div class="mobile-drawer-header">
+      <a href="#home" class="logo" onclick="closeMobileNav()">
+        <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
+        <div class="logo-text">Haven<span>Care</span></div>
+      </a>
+      <button class="mobile-drawer-close" onclick="closeMobileNav()" aria-label="Close navigation menu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="mobile-drawer-body">
+      <ul class="mobile-nav-links">
+        <li><a href="#home" onclick="closeMobileNav()"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="#about" onclick="closeMobileNav()"><i class="fas fa-info-circle"></i> About Us</a></li>
+        
+        <!-- Mobile Accordion for All Services -->
+        <li class="mobile-services-accordion" id="mobile-services-accordion">
+          <button class="mobile-accordion-btn" onclick="toggleMobileServicesMenu()">
+            <span><i class="fas fa-concierge-bell"></i> All Services</span>
+            <i class="fas fa-chevron-down mobile-accordion-arrow" id="mobile-services-arrow"></i>
+          </button>
+          <ul class="mobile-services-submenu" id="mobile-services-submenu">
+            <li><a href="#services-detail" onclick="switchServiceTab('elderly'); closeMobileNav();">👵 Elderly Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('homecare'); closeMobileNav();">🏠 Personal Home Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('posthospital'); closeMobileNav();">🏥 Post-Hospital Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('disability'); closeMobileNav();">♿ Disability Support</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('respite'); closeMobileNav();">❤️ Respite Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('specialized'); closeMobileNav();">👶 Specialized Care</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#caregivers" onclick="closeMobileNav()"><i class="fas fa-user-nurse"></i> Our Caregivers</a></li>
+        <li><a href="#how-it-works" onclick="closeMobileNav()"><i class="fas fa-stream"></i> How It Works</a></li>
+        <li><a href="#pricing" onclick="closeMobileNav()"><i class="fas fa-calculator"></i> Pricing & Quote</a></li>
+        <li><a href="#portal" onclick="closeMobileNav()"><i class="fas fa-laptop-house"></i> Client Portal</a></li>
+        <li><a href="#faq" onclick="closeMobileNav()"><i class="fas fa-question-circle"></i> FAQ</a></li>
+        <li><a href="#resources" onclick="closeMobileNav()"><i class="fas fa-book-open"></i> Resources</a></li>
+        <li><a href="#contact" onclick="closeMobileNav()"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      </ul>
+
+      <div class="mobile-drawer-cta">
+        <button class="btn btn-primary w-100" onclick="closeMobileNav(); openCareModal();">
+          <i class="fas fa-hand-holding-heart"></i> Request Care Now
+        </button>
+        <button class="btn btn-outline w-100" onclick="closeMobileNav(); openConsultationModal();" style="margin-top:0.75rem;">
+          <i class="fas fa-comments"></i> Free Consultation
+        </button>
+      </div>
+    </div>
+  </aside>
 
   <main>
     <!-- Hero Section -->
@@ -944,11 +999,12 @@
         <div class="footer-col">
           <h4>Care Services</h4>
           <ul class="footer-links">
-            <li><a href="#services">Elderly Home Care</a></li>
-            <li><a href="#services">Personal Hygiene Care</a></li>
-            <li><a href="#services">Post-Hospital Support</a></li>
-            <li><a href="#services">Disability Assistance</a></li>
-            <li><a href="#services">Respite Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('elderly')">Elderly Home Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('homecare')">Personal Hygiene Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('posthospital')">Post-Hospital Support</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('disability')">Disability Assistance</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('respite')">Respite Care</a></li>
+            <li><a href="#services-detail" onclick="switchServiceTab('specialized')">Specialized Care</a></li>
           </ul>
         </div>
 
@@ -967,9 +1023,9 @@
           <h4>Legal & Safety</h4>
           <ul class="footer-links">
             <li><a href="#safety">Screening Guarantee</a></li>
-            <li><a href="#" onclick="openEmergencyModal()">Emergency Guidance</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#emergency" onclick="openEmergencyModal(); return false;">Emergency Guidance</a></li>
+            <li><a href="#privacy" onclick="openPrivacyModal(); return false;">Privacy Policy</a></li>
+            <li><a href="#terms" onclick="openTermsModal(); return false;">Terms of Service</a></li>
           </ul>
         </div>
       </div>
@@ -1192,6 +1248,55 @@
         </ul>
         <div style="margin-top:2rem; text-align:center;">
           <button class="btn btn-secondary" onclick="closeEmergencyModal()">Return to Website</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Privacy Policy Modal -->
+  <div id="privacy-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fas fa-user-shield" style="color:var(--clr-teal);"></i> Privacy Policy</h3>
+        <button class="modal-close-btn" onclick="closePrivacyModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>HavenCare Client Data & Confidentiality</h4>
+        <p style="color:var(--clr-text-muted); font-size:0.95rem; margin-top:0.5rem; line-height:1.7;">
+          At HavenCare Home Services, your privacy and security are fundamental priorities. We handle all health information, care plans, contact details, and family communications with strict confidentiality and end-to-end security controls.
+        </p>
+        <ul style="margin: 1rem 0 1.5rem 1.25rem; color:var(--clr-text-main); font-size:0.9rem; line-height:1.8;">
+          <li>✓ All client care records are stored securely with encrypted database controls.</li>
+          <li>✓ We never sell, trade, or distribute your personal details to third parties.</li>
+          <li>✓ Daily care logs are strictly accessible only by authorized care coordinators and assigned caregivers.</li>
+          <li>✓ You may request complete erasure or updates to your client file at any time by contacting our care team.</li>
+        </ul>
+        <div style="text-align:right;">
+          <button class="btn btn-secondary" onclick="closePrivacyModal()">Close Privacy Notice</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms of Service Modal -->
+  <div id="terms-modal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h3><i class="fas fa-file-contract" style="color:var(--clr-teal);"></i> Terms of Service</h3>
+        <button class="modal-close-btn" onclick="closeTermsModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>Service Agreement & Quality Standards</h4>
+        <p style="color:var(--clr-text-muted); font-size:0.95rem; margin-top:0.5rem; line-height:1.7;">
+          HavenCare Home Services provides certified non-medical personal home care, companion care, mobility assistance, and daily living support.
+        </p>
+        <ul style="margin: 1rem 0 1.5rem 1.25rem; color:var(--clr-text-main); font-size:0.9rem; line-height:1.8;">
+          <li><strong>Scope of Assistance:</strong> Caregivers provide dedicated non-clinical daily living assistance. Clinical procedures are arranged separately with registered healthcare professionals.</li>
+          <li><strong>Scheduling Flexibility:</strong> Care schedules can be adjusted, paused, or customized with 24 hours notice to your dedicated Care Coordinator.</li>
+          <li><strong>Safety & Screening Guarantee:</strong> All caregivers undergo 5-tier screening including background checks, identity audits, and CPR certification.</li>
+        </ul>
+        <div style="text-align:right;">
+          <button class="btn btn-secondary" onclick="closeTermsModal()">Close Terms</button>
         </div>
       </div>
     </div>
