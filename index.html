@@ -76,7 +76,7 @@
         <div class="logo-text">Haven<span>Care</span></div>
       </a>
 
-      <nav>
+      <nav class="desktop-nav">
         <ul class="nav-links">
           <li><a href="#home" class="nav-link active">Home</a></li>
           <li><a href="#about" class="nav-link">About Us</a></li>
@@ -102,69 +102,59 @@
       </nav>
 
       <div class="nav-actions">
-        <button class="btn btn-primary" onclick="openCareModal()">
+        <button class="btn btn-primary nav-request-btn" onclick="openCareModal()">
           <i class="fas fa-hand-holding-heart"></i> Request Care
         </button>
-        <button class="mobile-nav-toggle" aria-label="Toggle navigation menu" onclick="openMobileNav()">
-          <i class="fas fa-bars"></i>
+        <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Toggle navigation menu" onclick="toggleMobileNav()">
+          <i class="fas fa-bars" id="mobile-toggle-icon"></i>
+          <span class="mobile-toggle-text">Menu</span>
         </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation Panel (Visible directly under header on tap - No Swiping Needed) -->
+    <div class="mobile-dropdown-panel" id="mobile-dropdown-panel">
+      <div class="container mobile-panel-inner">
+        <ul class="mobile-nav-list">
+          <li><a href="#home" onclick="closeMobileNav()"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="#about" onclick="closeMobileNav()"><i class="fas fa-info-circle"></i> About Us</a></li>
+          
+          <!-- Accordion for All Services -->
+          <li class="mobile-services-accordion" id="mobile-services-accordion">
+            <button class="mobile-accordion-btn" onclick="toggleMobileServicesMenu()">
+              <span><i class="fas fa-concierge-bell"></i> All Services</span>
+              <i class="fas fa-chevron-down mobile-accordion-arrow" id="mobile-services-arrow"></i>
+            </button>
+            <ul class="mobile-services-submenu" id="mobile-services-submenu">
+              <li><a href="#services-detail" onclick="switchServiceTab('elderly'); closeMobileNav();">👵 Elderly Care</a></li>
+              <li><a href="#services-detail" onclick="switchServiceTab('homecare'); closeMobileNav();">🏠 Personal Home Care</a></li>
+              <li><a href="#services-detail" onclick="switchServiceTab('posthospital'); closeMobileNav();">🏥 Post-Hospital Care</a></li>
+              <li><a href="#services-detail" onclick="switchServiceTab('disability'); closeMobileNav();">♿ Disability Support</a></li>
+              <li><a href="#services-detail" onclick="switchServiceTab('respite'); closeMobileNav();">❤️ Respite Care</a></li>
+              <li><a href="#services-detail" onclick="switchServiceTab('specialized'); closeMobileNav();">👶 Specialized Care</a></li>
+            </ul>
+          </li>
+
+          <li><a href="#caregivers" onclick="closeMobileNav()"><i class="fas fa-user-nurse"></i> Our Caregivers</a></li>
+          <li><a href="#how-it-works" onclick="closeMobileNav()"><i class="fas fa-stream"></i> How It Works</a></li>
+          <li><a href="#pricing" onclick="closeMobileNav()"><i class="fas fa-calculator"></i> Pricing & Quote</a></li>
+          <li><a href="#portal" onclick="closeMobileNav()"><i class="fas fa-laptop-house"></i> Client Portal</a></li>
+          <li><a href="#faq" onclick="closeMobileNav()"><i class="fas fa-question-circle"></i> FAQ</a></li>
+          <li><a href="#resources" onclick="closeMobileNav()"><i class="fas fa-book-open"></i> Resources</a></li>
+          <li><a href="#contact" onclick="closeMobileNav()"><i class="fas fa-envelope"></i> Contact Us</a></li>
+        </ul>
+
+        <div class="mobile-panel-ctas">
+          <button class="btn btn-primary w-100" onclick="closeMobileNav(); openCareModal();">
+            <i class="fas fa-hand-holding-heart"></i> Request Care Now
+          </button>
+          <button class="btn btn-outline w-100" onclick="closeMobileNav(); openConsultationModal();" style="margin-top:0.6rem;">
+            <i class="fas fa-comments"></i> Free Care Consultation
+          </button>
+        </div>
       </div>
     </div>
   </header>
-
-  <!-- Mobile Navigation Drawer & Backdrop -->
-  <div class="mobile-nav-backdrop" id="mobile-nav-backdrop" onclick="closeMobileNav()"></div>
-  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" aria-label="Mobile Navigation Menu">
-    <div class="mobile-drawer-header">
-      <a href="#home" class="logo" onclick="closeMobileNav()">
-        <div class="logo-icon"><i class="fas fa-heartbeat"></i></div>
-        <div class="logo-text">Haven<span>Care</span></div>
-      </a>
-      <button class="mobile-drawer-close" onclick="closeMobileNav()" aria-label="Close navigation menu">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    
-    <div class="mobile-drawer-body">
-      <ul class="mobile-nav-links">
-        <li><a href="#home" onclick="closeMobileNav()"><i class="fas fa-home"></i> Home</a></li>
-        <li><a href="#about" onclick="closeMobileNav()"><i class="fas fa-info-circle"></i> About Us</a></li>
-        
-        <!-- Mobile Accordion for All Services -->
-        <li class="mobile-services-accordion" id="mobile-services-accordion">
-          <button class="mobile-accordion-btn" onclick="toggleMobileServicesMenu()">
-            <span><i class="fas fa-concierge-bell"></i> All Services</span>
-            <i class="fas fa-chevron-down mobile-accordion-arrow" id="mobile-services-arrow"></i>
-          </button>
-          <ul class="mobile-services-submenu" id="mobile-services-submenu">
-            <li><a href="#services-detail" onclick="switchServiceTab('elderly'); closeMobileNav();">👵 Elderly Care</a></li>
-            <li><a href="#services-detail" onclick="switchServiceTab('homecare'); closeMobileNav();">🏠 Personal Home Care</a></li>
-            <li><a href="#services-detail" onclick="switchServiceTab('posthospital'); closeMobileNav();">🏥 Post-Hospital Care</a></li>
-            <li><a href="#services-detail" onclick="switchServiceTab('disability'); closeMobileNav();">♿ Disability Support</a></li>
-            <li><a href="#services-detail" onclick="switchServiceTab('respite'); closeMobileNav();">❤️ Respite Care</a></li>
-            <li><a href="#services-detail" onclick="switchServiceTab('specialized'); closeMobileNav();">👶 Specialized Care</a></li>
-          </ul>
-        </li>
-
-        <li><a href="#caregivers" onclick="closeMobileNav()"><i class="fas fa-user-nurse"></i> Our Caregivers</a></li>
-        <li><a href="#how-it-works" onclick="closeMobileNav()"><i class="fas fa-stream"></i> How It Works</a></li>
-        <li><a href="#pricing" onclick="closeMobileNav()"><i class="fas fa-calculator"></i> Pricing & Quote</a></li>
-        <li><a href="#portal" onclick="closeMobileNav()"><i class="fas fa-laptop-house"></i> Client Portal</a></li>
-        <li><a href="#faq" onclick="closeMobileNav()"><i class="fas fa-question-circle"></i> FAQ</a></li>
-        <li><a href="#resources" onclick="closeMobileNav()"><i class="fas fa-book-open"></i> Resources</a></li>
-        <li><a href="#contact" onclick="closeMobileNav()"><i class="fas fa-envelope"></i> Contact Us</a></li>
-      </ul>
-
-      <div class="mobile-drawer-cta">
-        <button class="btn btn-primary w-100" onclick="closeMobileNav(); openCareModal();">
-          <i class="fas fa-hand-holding-heart"></i> Request Care Now
-        </button>
-        <button class="btn btn-outline w-100" onclick="closeMobileNav(); openConsultationModal();" style="margin-top:0.75rem;">
-          <i class="fas fa-comments"></i> Free Consultation
-        </button>
-      </div>
-    </div>
-  </aside>
 
   <main>
     <!-- Hero Section -->

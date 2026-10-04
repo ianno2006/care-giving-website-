@@ -15,22 +15,33 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
 });
 
-/* Mobile Navigation Drawer System */
+/* Top Dropdown Mobile Navigation System */
 function initMobileNav() {
-  window.openMobileNav = function() {
-    const drawer = document.getElementById('mobile-nav-drawer');
-    const backdrop = document.getElementById('mobile-nav-backdrop');
-    if (drawer) drawer.classList.add('active');
-    if (backdrop) backdrop.classList.add('active');
-    document.body.style.overflow = 'hidden';
+  window.toggleMobileNav = function() {
+    const panel = document.getElementById('mobile-dropdown-panel');
+    const icon = document.getElementById('mobile-toggle-icon');
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+
+    if (!panel) return;
+
+    const isOpen = panel.classList.contains('open');
+    if (isOpen) {
+      closeMobileNav();
+    } else {
+      panel.classList.add('open');
+      if (icon) icon.className = 'fas fa-times';
+      if (toggleBtn) toggleBtn.classList.add('active');
+    }
   };
 
   window.closeMobileNav = function() {
-    const drawer = document.getElementById('mobile-nav-drawer');
-    const backdrop = document.getElementById('mobile-nav-backdrop');
-    if (drawer) drawer.classList.remove('active');
-    if (backdrop) backdrop.classList.remove('active');
-    document.body.style.overflow = '';
+    const panel = document.getElementById('mobile-dropdown-panel');
+    const icon = document.getElementById('mobile-toggle-icon');
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+
+    if (panel) panel.classList.remove('open');
+    if (icon) icon.className = 'fas fa-bars';
+    if (toggleBtn) toggleBtn.classList.remove('active');
   };
 
   window.toggleMobileServicesMenu = function() {

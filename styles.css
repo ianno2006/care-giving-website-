@@ -1491,92 +1491,70 @@ h4 { font-size: 1.2rem; }
 }
 
 /* ==========================================================================
-   Mobile Navigation Drawer & Accordion System
+   Mobile Dropdown Navigation Panel (Attached directly under header - No Swiping)
    ========================================================================== */
-.mobile-nav-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(27, 42, 74, 0.65);
-  backdrop-filter: blur(4px);
-  z-index: 1900;
-  opacity: 0;
-  visibility: hidden;
+.mobile-nav-toggle {
+  display: none;
+  background: none;
+  font-size: 1.1rem;
+  color: var(--clr-navy);
+  font-weight: 700;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--clr-border);
+  background-color: var(--clr-white);
   transition: all var(--transition-fast);
 }
 
-.mobile-nav-backdrop.active {
+.mobile-nav-toggle.active {
+  background-color: var(--clr-teal-bg);
+  border-color: var(--clr-teal);
+  color: var(--clr-teal);
+}
+
+.mobile-dropdown-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: var(--clr-white);
+  border-bottom: 3px solid var(--clr-teal);
+  box-shadow: 0 12px 30px rgba(27, 42, 74, 0.15);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: max-height 0.35s ease-in-out, opacity 0.25s ease-in-out, visibility 0.25s ease-in-out;
+  z-index: 1500;
+}
+
+.mobile-dropdown-panel.open {
+  max-height: 85vh;
+  overflow-y: auto;
   opacity: 1;
   visibility: visible;
 }
 
-.mobile-nav-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 85%;
-  max-width: 360px;
-  height: 100vh;
-  background-color: var(--clr-white);
-  z-index: 2000;
-  box-shadow: -5px 0 25px rgba(0, 0, 0, 0.2);
-  display: flex;
-  flex-direction: column;
-  transform: translateX(100%);
-  transition: transform var(--transition-smooth);
-  overflow-y: auto;
+.mobile-panel-inner {
+  padding: 1.25rem 1.5rem 1.75rem 1.5rem;
 }
 
-.mobile-nav-drawer.active {
-  transform: translateX(0);
-}
-
-.mobile-drawer-header {
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid var(--clr-border);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--clr-cream);
-}
-
-.mobile-drawer-close {
-  background: none;
-  font-size: 1.6rem;
-  color: var(--clr-navy);
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 44px;
-  min-height: 44px;
-}
-
-.mobile-drawer-body {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(100vh - 80px);
-}
-
-.mobile-nav-links {
+.mobile-nav-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 0.25rem;
 }
 
-.mobile-nav-links li a, .mobile-accordion-btn {
+.mobile-nav-list li a, .mobile-accordion-btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.85rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: var(--clr-navy);
   transition: background-color var(--transition-fast);
   width: 100%;
@@ -1585,13 +1563,13 @@ h4 { font-size: 1.2rem; }
   min-height: 44px;
 }
 
-.mobile-nav-links li a i, .mobile-accordion-btn span i {
-  width: 24px;
+.mobile-nav-list li a i, .mobile-accordion-btn span i {
+  width: 22px;
   color: var(--clr-teal);
   margin-right: 0.5rem;
 }
 
-.mobile-nav-links li a:hover, .mobile-nav-links li a:focus, .mobile-accordion-btn:hover {
+.mobile-nav-list li a:hover, .mobile-nav-list li a:focus, .mobile-accordion-btn:hover {
   background-color: var(--clr-teal-bg);
   color: var(--clr-teal);
 }
@@ -1623,25 +1601,41 @@ h4 { font-size: 1.2rem; }
 .mobile-services-accordion.open .mobile-services-submenu {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0.2rem;
 }
 
 .mobile-services-submenu a {
-  font-size: 0.925rem !important;
-  padding: 0.65rem 0.85rem !important;
+  font-size: 0.9rem !important;
+  padding: 0.6rem 0.85rem !important;
   color: var(--clr-text-main) !important;
 }
 
-.mobile-drawer-cta {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
+.mobile-panel-ctas {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
   border-top: 1px solid var(--clr-border);
 }
 
+/* Hover Isolation to Prevent Stuck Hover States on Touch Screens */
+@media (hover: hover) {
+  .btn-primary:hover { background-color: var(--clr-teal-light); transform: translateY(-2px); }
+  .btn-accent:hover { background-color: var(--clr-coral-hover); transform: translateY(-2px); }
+  .btn-secondary:hover { background-color: var(--clr-navy-light); transform: translateY(-2px); }
+  .service-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--clr-teal-light); }
+  .caregiver-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+  .step-item:hover { transform: translateY(-4px); border-color: var(--clr-teal); }
+}
+
 /* ==========================================================================
-   Responsive Media Queries
+   Responsive Media Queries & Compact Card Layouts
    ========================================================================== */
 @media (max-width: 992px) {
+  .desktop-nav {
+    display: none;
+  }
+  .mobile-nav-toggle {
+    display: inline-flex;
+  }
   .hero-grid, .about-grid, .pricing-calculator-card, .service-detail-grid, .contact-grid {
     grid-template-columns: 1fr;
   }
@@ -1657,18 +1651,18 @@ h4 { font-size: 1.2rem; }
   .top-emergency-inner {
     flex-direction: column;
     text-align: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   .hero-image-card img {
-    height: 380px;
+    height: 340px;
   }
   .floating-trust-badge {
     position: relative;
     bottom: auto;
     left: auto;
-    margin-top: -30px;
-    margin-left: 15px;
-    margin-right: 15px;
+    margin-top: -25px;
+    margin-left: 10px;
+    margin-right: 10px;
     animation: none;
     z-index: 5;
   }
@@ -1678,15 +1672,49 @@ h4 { font-size: 1.2rem; }
   .nav-links, .top-contact-links {
     display: none;
   }
-  .mobile-nav-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 44px;
-    min-height: 44px;
+  .nav-request-btn {
+    display: none;
   }
   .steps-timeline {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .service-card {
+    padding: 1.25rem 1rem;
+  }
+  .service-icon-box {
+    width: 48px;
+    height: 48px;
+    font-size: 1.4rem;
+    margin-bottom: 0.85rem;
+  }
+  .caregiver-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .caregiver-photo-wrap {
+    height: 220px;
+  }
+  .caregiver-info {
+    padding: 1rem;
+  }
+  .safety-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .safety-card {
+    padding: 1.25rem 1rem;
+  }
+  .blog-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .blog-card {
+    padding: 1.25rem 1rem;
   }
   .checkbox-grid {
     grid-template-columns: 1fr;
@@ -1709,6 +1737,11 @@ h4 { font-size: 1.2rem; }
   .service-tab-btn {
     white-space: nowrap;
     flex-shrink: 0;
+    padding: 0.6rem 1.15rem;
+    font-size: 0.875rem;
+  }
+  .service-tab-pane {
+    padding: 1.25rem;
   }
   .footer-grid {
     grid-template-columns: 1fr;
@@ -1719,23 +1752,23 @@ h4 { font-size: 1.2rem; }
     text-align: center;
   }
   .pricing-calculator-card {
-    padding: 1.5rem;
+    padding: 1.25rem 1rem;
   }
   .portal-body {
-    padding: 1.25rem;
+    padding: 1rem;
   }
   .modal-container {
     max-width: 95%;
     max-height: 92vh;
   }
   .modal-header, .modal-body {
-    padding: 1.25rem;
+    padding: 1.25rem 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .hero {
-    padding: 2.5rem 0 3.5rem 0;
+    padding: 2rem 0 3rem 0;
   }
   .hero-ctas {
     flex-direction: column;
@@ -1750,10 +1783,10 @@ h4 { font-size: 1.2rem; }
     gap: 0.75rem;
   }
   .filter-bar {
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
   .filter-btn {
     font-size: 0.8rem;
-    padding: 0.5rem 1rem;
+    padding: 0.45rem 0.85rem;
   }
 }
